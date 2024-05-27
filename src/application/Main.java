@@ -1,10 +1,12 @@
 package application;
 
+import model.entites.Book;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
+		Book l1 = new Book("Java", "Gabriel", 1, 520.00, 12);
+		System.out.println(l1);
 	}
-
 }
