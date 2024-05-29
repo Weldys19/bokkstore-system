@@ -48,6 +48,10 @@ public class Book {
 		this.quantityStock = quantityStock;
 	}
 	
+	public Category getCategory() {
+		return category;
+	}
+
 	@Override
 	public String toString() {
 		return title

@@ -1,10 +1,10 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Scanner;
 
 import model.entites.Book;
+import model.entites.Bookstore;
 import model.entites.enums.Category;
 
 public class Main {
@@ -12,7 +12,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
-		List<Book> book = new ArrayList<>();
+		Bookstore store = new Bookstore();
+		UI.setStore(store);
 		
 		int choice = 0;
 		
@@ -39,16 +40,12 @@ public class Main {
 					System.out.print("Categoria: ");
 					sc.nextLine();
 					String category = sc.nextLine().toUpperCase();
-					book.add(new Book(title, author, id , price, quantityStock, Category.valueOf(category)));
+					store.add(new Book(title, author, id , price, quantityStock, Category.valueOf(category)));
 					break;
 				case 2:
-					for (Book b : book) {
-						System.out.println(b.toString());
-					}
-					System.out.println("PRESS ENTER");
+					UI.catalog();
 					sc.nextLine();
 					break;
-					
 			}
 			
 		}while (choice != 0);	
