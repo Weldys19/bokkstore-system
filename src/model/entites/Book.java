@@ -10,14 +10,19 @@ public class Book {
 	private Double price;
 	private Integer quantityStock;
 	private Category category;
+	private String synopsis;
 	
-	public Book(String title, String author, Integer id, Double price, Integer quantityStock, Category category) {
+	public Book(String title, String author, Integer id, Double price, Integer quantityStock, Category category, String synopsis) {
+		if (price < 0 || id < 0 || quantityStock < 0) {
+			throw new BookException("Tanto o ID, quanto o preco, e quantidade em estoque, nao podem ser negativos. PRESS ENTER");
+		}
 		this.title = title;
 		this.author = author;
 		this.id = id;
 		this.price = price;
 		this.quantityStock = quantityStock;
 		this.category = category;
+		this.synopsis = synopsis;
 	}
 
 	public String getTitle() {
@@ -51,7 +56,11 @@ public class Book {
 	public Category getCategory() {
 		return category;
 	}
-	
+
+	public String getSynopsis() {
+		return synopsis;
+	}
+
 	@Override
 	public String toString() {
 		return title

@@ -49,16 +49,32 @@ public class Main {
 						sc.nextLine();
 						Category category = Category.valueOf(sc.nextLine().toUpperCase());
 						
-						store.add(new Book(title, author, id , price, quantityStock, category));
+						System.out.print("Sinopse: ");
+						String synopsis = sc.nextLine();
+						
+						store.add(new Book(title, author, id , price, quantityStock, category, synopsis));
 						break;
 					case 2:
 						UI.catalog(store);
 						sc.nextLine();
 						break;
+					case 3:
+						System.out.println();
+						System.out.print("Insira o titulo do livro: ");
+						title = sc.nextLine();
+						UI.searchBookResult(store, title);
+						break;
+					case 6:
+						System.out.println();
+						System.out.print("Insira a categoria: ");
+						category = Category.valueOf(sc.nextLine().toUpperCase());
+						UI.searchBookCategoryResult(store, category);
+						break;
 				}		
 			}
 			catch (BookException e) {
-				System.out.println(e.getMessage());
+				System.out.print(e.getMessage());
+				sc.nextLine();
 				sc.nextLine();
 			}	
 			catch (IllegalArgumentException e) {
