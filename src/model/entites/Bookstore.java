@@ -13,11 +13,16 @@ public class Bookstore {
 	public void add(Book book) {
 		list.add(book);
 	}
-
-	public String bookCatalog() {
-		for (Book book : list) {
-			return book.toString();
+	
+	public List<Book> getList() {
+		return list;
+	}
+	
+	public void idAlreadyExists(Integer id) {
+		for (Book b : list) {
+			if (b.getId() == id) {
+				throw new BookException("ID invalido. Ja existe outro produto com esse ID. PRESS ENTER");
+			}
 		}
-		return "";
 	}
 }

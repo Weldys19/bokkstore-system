@@ -51,7 +51,7 @@ public class Book {
 	public Category getCategory() {
 		return category;
 	}
-
+	
 	@Override
 	public String toString() {
 		return title
