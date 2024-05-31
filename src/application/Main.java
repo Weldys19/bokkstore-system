@@ -5,6 +5,8 @@ import java.util.Scanner;
 import model.entites.Book;
 import model.entites.BookException;
 import model.entites.Bookstore;
+import model.entites.Client;
+import model.entites.ClientException;
 import model.entites.enums.Category;
 
 public class Main {
@@ -64,6 +66,27 @@ public class Main {
 						title = sc.nextLine();
 						UI.searchBookResult(store, title);
 						break;
+					case 4:
+						System.out.println();
+						System.out.println("Entre com os dados do cliente:");
+						System.out.print("Nome: ");
+						String name = sc.nextLine();
+						
+						System.out.print("ID: ");
+						Integer idClient = sc.nextInt();
+						
+						System.out.print("Numero de telefone: ");
+						sc.nextLine();
+						String telephone = sc.nextLine();
+
+						if (store.clientAlreadyExists(idClient, name , telephone) != null) {
+							UI.loan(store.clientAlreadyExists(idClient, name , telephone), sc, store);
+						}
+						else {
+							Client client = new Client(name, idClient, telephone);
+							UI.loan(client, sc, store);
+						}	
+						break;
 					case 6:
 						System.out.println();
 						System.out.print("Insira a categoria: ");
@@ -81,8 +104,13 @@ public class Main {
 				System.out.print("Categoria invalida. PRESS ENTER");
 				sc.nextLine();
 			}
+			catch (ClientException e) {
+				System.out.print(e.getMessage());
+				sc.nextLine();
+				sc.nextLine();
+			}	
 			catch (RuntimeException e) {
-				System.out.print("Informacoes invalidas. PRESS ENTER");
+				System.out.println("Informacoes invalidas. PRESS ENTER");
 				sc.nextLine();
 				sc.nextLine();
 			}

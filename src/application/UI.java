@@ -1,7 +1,10 @@
 package application;
 
+import java.util.Scanner;
+
 import model.entites.Book;
 import model.entites.Bookstore;
+import model.entites.Client;
 import model.entites.enums.Category;
 
 public class UI {
@@ -45,5 +48,12 @@ public class UI {
 				System.out.println(b.toString());
 			}
 		}
+	}
+	
+	protected static void loan(Client client, Scanner sc, Bookstore store) {
+		System.out.print("Informe o ID do livro que deseja: ");
+		Integer id = sc.nextInt();
+		store.bookLoan(client, id);
+		System.out.println(client.toString());
 	}
 }
