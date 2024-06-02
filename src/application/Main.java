@@ -39,10 +39,6 @@ public class Main {
 						Integer id = sc.nextInt();
 						store.idAlreadyExists(id);
 						
-						System.out.print("Preco: ");
-						sc.nextLine();
-						Double price = sc.nextDouble();
-						
 						System.out.print("Estoque: ");
 						sc.nextLine();
 						Integer quantityStock = sc.nextInt();
@@ -51,10 +47,7 @@ public class Main {
 						sc.nextLine();
 						Category category = Category.valueOf(sc.nextLine().toUpperCase());
 						
-						System.out.print("Sinopse: ");
-						String synopsis = sc.nextLine();
-						
-						store.add(new Book(title, author, id , price, quantityStock, category, synopsis));
+						store.add(new Book(title, author, id, quantityStock, category));
 						break;
 					case 2:
 						UI.catalog(store);
@@ -64,7 +57,8 @@ public class Main {
 						System.out.println();
 						System.out.print("Insira o titulo do livro: ");
 						title = sc.nextLine();
-						UI.searchBookResult(store, title);
+						UI.searchBookResult(store, title, sc);
+						sc.nextLine();
 						break;
 					case 4:
 						System.out.println();
@@ -87,12 +81,16 @@ public class Main {
 							UI.loan(client, sc, store);
 						}	
 						break;
+					case 5:
+						UI.returnBook(store, sc);
+						break;
 					case 6:
 						System.out.println();
 						System.out.print("Insira a categoria: ");
 						category = Category.valueOf(sc.nextLine().toUpperCase());
 						UI.searchBookCategoryResult(store, category);
-						break;
+						sc.nextLine();
+						break;	
 				}		
 			}
 			catch (BookException e) {
@@ -106,7 +104,6 @@ public class Main {
 			}
 			catch (ClientException e) {
 				System.out.print(e.getMessage());
-				sc.nextLine();
 				sc.nextLine();
 			}	
 			catch (RuntimeException e) {

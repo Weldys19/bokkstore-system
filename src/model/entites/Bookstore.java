@@ -66,6 +66,18 @@ public class Bookstore {
 		return null;
 	}
 	
+	public Client clientAlreadyExistsAux(Integer id, String name, String telephone) {
+		for (Client c : client) {
+			if (c.getId() == id && c.getName().equals(name) && c.getTelephone().equals(telephone)) {
+				return c;
+			}
+			else {
+				throw new ClientException("Esse cliente nao esta na base de dados");
+			}
+		}
+		return null;
+	}
+	
 	public void bookLoan(Client client, Integer id) {
 		for (Book b : list) {
 			if (id == b.getId()) {
@@ -82,10 +94,36 @@ public class Bookstore {
 		}
 	}
 	
-	public void listOfBorrowedBooks() {
+	public void bookReturn(Client client, String title, Integer id) {
+		Book b = returnedBook(client, title, id);
+		if (b != null) {
+			client.removeBook(b);
+			businessBooks.remove(b);
+			for (Book books : list) {
+				if (books.getId() == b.getId()) {
+					books.setQuantityStock(books.getQuantityStock() + 1);
+				}
+			}
+		}
+		else {
+			throw new BookException("Esse livro nao esta na nossa base de dados");
+		}
+	}
+	
+	private Book returnedBook(Client client, String title, Integer id) {
+		for (Book b : client.getMyBorrowedBooks()) {
+			if (b.getTitle().equals(title) && b.getId() == id) {
+				return b;
+			}
+		}
+		return null;
+	}
+	
+	public List<String> listOfBorrowedBooks() {
 		List<String> aux = new ArrayList<>();
 		for (Client c : client) {
 			aux.add(c.toString());
 		}
+		return aux;
 	}
 }

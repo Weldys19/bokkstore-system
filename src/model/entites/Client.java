@@ -48,18 +48,26 @@ public class Client {
 		myBorrowedBooks.add(book);
 	}
 	
+	protected void removeBook(Book book) {
+		myBorrowedBooks.remove(book);
+	}
+	
 	@Override
 	public String toString() {
 		System.out.println();
-		System.out.println("Emprestimo feito. Dados:");
 		StringBuilder sc = new StringBuilder();
 		sc.append("Cliente:\n");
 		sc.append("Name: " + name + "\n");
 		sc.append("ID: " + id + "\n");
 		sc.append("Telefone: " + telephone + "\n");
 		sc.append("Livros emprestados para esse cliente:\n");
-		for (Book b : myBorrowedBooks) {
-			sc.append(b.toString() + "\n");
+		if (myBorrowedBooks.size() > 0) {
+			for (Book b : myBorrowedBooks) {
+				sc.append(b.toString() + "\n");
+			}
+		}
+		else {
+			sc.append("No momento esse cliente nao tem nenhum livro alugado");
 		}
 		return sc.toString();	
 	}
