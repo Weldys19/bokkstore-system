@@ -29,7 +29,7 @@ public class Bookstore {
 	public void idAlreadyExists(Integer id) {
 		for (Book b : list) {
 			if (b.getId() == id) {
-				throw new BookException("ID invalido. Ja existe produto com esse ID. PRESS ENTER");
+				throw new BookException("ID invalido. Ja existe livro com esse ID. PRESS ENTER");
 			}
 		}
 	}
@@ -54,6 +54,15 @@ public class Bookstore {
 		return searchResult;
 	}
 	
+	public Client searchClientData(String name, Integer id) {
+		for (Client c : client) {
+			if (c.getName().equals(name) && c.getId() == id) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
 	public Client clientAlreadyExists(Integer id, String name, String telephone) {
 		for (Client c : client) {
 			if (c.getId() == id && c.getName().equals(name) && c.getTelephone().equals(telephone)) {
@@ -71,19 +80,20 @@ public class Bookstore {
 			if (c.getId() == id && c.getName().equals(name) && c.getTelephone().equals(telephone)) {
 				return c;
 			}
-			else {
-				throw new ClientException("Esse cliente nao esta na base de dados");
-			}
 		}
 		return null;
 	}
 	
 	public void bookLoan(Client client, Integer id) {
+		if(clientAlreadyExistsAux(client.getId(), client.getName(), client.getTelephone()) == null) {
+			this.client.add(client);
+		}
+		boolean bookExistis = false;
 		for (Book b : list) {
 			if (id == b.getId()) {
+				bookExistis = true;
 				if (b.getQuantityStock() > 0) {
 					client.addBook(b);
-					this.client.add(client);
 					businessBooks.add(b);
 					b.setQuantityStock(b.getQuantityStock() - 1);
 				}
@@ -91,6 +101,9 @@ public class Bookstore {
 					throw new BookException("Sem estoque desse livro. PRESS ENTER");
 				}
 			}
+		}
+		if (!bookExistis) {
+			throw new BookException("Esse livro nao esta na base de dados. PRESS ENTER");
 		}
 	}
 	
@@ -106,13 +119,13 @@ public class Bookstore {
 			}
 		}
 		else {
-			throw new BookException("Esse livro nao esta na nossa base de dados");
+			throw new BookException("O cliente nao tem nenhum livro alugado com esses dados. PRESS ENTER");
 		}
 	}
 	
 	private Book returnedBook(Client client, String title, Integer id) {
 		for (Book b : client.getMyBorrowedBooks()) {
-			if (b.getTitle().equals(title) && b.getId() == id) {
+			if (b.getTitle().equals(title) && b.getId().equals(id)) {
 				return b;
 			}
 		}

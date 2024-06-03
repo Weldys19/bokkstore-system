@@ -52,6 +52,10 @@ public class Client {
 		myBorrowedBooks.remove(book);
 	}
 	
+	protected Client clientClass() {
+		return this;
+	}
+	
 	@Override
 	public String toString() {
 		System.out.println();
@@ -60,14 +64,14 @@ public class Client {
 		sc.append("Name: " + name + "\n");
 		sc.append("ID: " + id + "\n");
 		sc.append("Telefone: " + telephone + "\n");
-		sc.append("Livros emprestados para esse cliente:\n");
+		sc.append("\nLivros emprestados para esse cliente:\n");
 		if (myBorrowedBooks.size() > 0) {
 			for (Book b : myBorrowedBooks) {
-				sc.append(b.toString() + "\n");
+				sc.append(b.toString() + "\n" + "\n");
 			}
 		}
 		else {
-			sc.append("No momento esse cliente nao tem nenhum livro alugado");
+			sc.append("\n" + "No momento esse cliente nao tem nenhum livro alugado");
 		}
 		return sc.toString();	
 	}

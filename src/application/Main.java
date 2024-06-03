@@ -80,6 +80,7 @@ public class Main {
 							Client client = new Client(name, idClient, telephone);
 							UI.loan(client, sc, store);
 						}	
+						sc.nextLine();
 						break;
 					case 5:
 						UI.returnBook(store, sc);
@@ -91,6 +92,16 @@ public class Main {
 						UI.searchBookCategoryResult(store, category);
 						sc.nextLine();
 						break;	
+					case 7:
+						UI.dataFromBorrowedBooks(store);
+						sc.nextLine();
+						break;
+					case 8:
+						UI.searchClientDataResult(store, sc);
+						sc.nextLine();
+						break;
+					case 0:
+						System.out.println("Programa encerrado");
 				}		
 			}
 			catch (BookException e) {
