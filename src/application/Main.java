@@ -27,26 +27,12 @@ public class Main {
 				sc.nextLine();
 				switch (choice) {
 					case 1:
-						System.out.println();
-						System.out.println("Cadastro de livro: ");
-						System.out.print("Titulo: ");
-						String title = sc.nextLine();
-						
-						System.out.print("Autor: ");
-						String author = sc.nextLine();
-						
-						System.out.print("Id: ");
-						Integer id = sc.nextInt();
+						String title = UI.UITitle(sc);
+						String author = UI.UIAuthor(sc);
+						Integer id = UI.UIId(sc);
 						store.idAlreadyExists(id);
-						
-						System.out.print("Estoque: ");
-						sc.nextLine();
-						Integer quantityStock = sc.nextInt();
-						
-						System.out.print("Categoria: ");
-						sc.nextLine();
-						Category category = Category.valueOf(sc.nextLine().toUpperCase());
-						
+						Integer quantityStock = UI.UIQuantityStock(sc);
+						Category category = UI.UICategory(sc);
 						store.add(new Book(title, author, id, quantityStock, category));
 						break;
 					case 2:
@@ -55,29 +41,22 @@ public class Main {
 						break;
 					case 3:
 						System.out.println();
-						System.out.print("Insira o titulo do livro: ");
-						title = sc.nextLine();
+						title = UI.UITitle(sc);
 						UI.searchBookResult(store, title, sc);
 						sc.nextLine();
 						break;
 					case 4:
 						System.out.println();
 						System.out.println("Entre com os dados do cliente:");
-						System.out.print("Nome: ");
-						String name = sc.nextLine();
-						
-						System.out.print("ID: ");
-						Integer idClient = sc.nextInt();
-						
-						System.out.print("Numero de telefone: ");
-						sc.nextLine();
-						String telephone = sc.nextLine();
-
-						if (store.clientAlreadyExists(idClient, name , telephone) != null) {
-							UI.loan(store.clientAlreadyExists(idClient, name , telephone), sc, store);
+						String name = UI.UIName(sc);
+						id = UI.UIId(sc);
+						String telephone = UI.UITelephone(sc);
+						Client clientExistis = store.clientAlreadyExists(id, name , telephone);
+						if (clientExistis != null) {
+							UI.loan(clientExistis, sc, store);
 						}
 						else {
-							Client client = new Client(name, idClient, telephone);
+							Client client = new Client(name, id, telephone);
 							UI.loan(client, sc, store);
 						}	
 						sc.nextLine();
@@ -87,8 +66,7 @@ public class Main {
 						break;
 					case 6:
 						System.out.println();
-						System.out.print("Insira a categoria: ");
-						category = Category.valueOf(sc.nextLine().toUpperCase());
+						category = UI.UICategory(sc);
 						UI.searchBookCategoryResult(store, category);
 						sc.nextLine();
 						break;	

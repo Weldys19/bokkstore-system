@@ -21,6 +21,50 @@ public class UI {
 				+ "\n              Digite 0 para encerrar o programa";
 	}
 	
+	protected static String UITitle(Scanner sc) {
+		System.out.print("Titulo: ");
+		String title = sc.nextLine();
+		return title;
+	}
+	
+	protected static String UIAuthor(Scanner sc) {
+		System.out.print("Autor: ");
+		String author = sc.nextLine();
+		return author;
+	}
+	
+	protected static Integer UIId(Scanner sc) {
+		System.out.print("ID: ");
+		Integer id = sc.nextInt();
+		return id;
+	}
+	
+	protected static Integer UIQuantityStock(Scanner sc) {
+		System.out.print("Estoque: ");
+		Integer quantityStock = sc.nextInt();
+		sc.nextLine();
+		return quantityStock;
+	}
+	
+	protected static Category UICategory(Scanner sc) {
+		System.out.print("Categoria: ");
+		Category category = Category.valueOf(sc.nextLine().toUpperCase());
+		return category;
+	}
+	
+	protected static String UIName(Scanner sc) {
+		System.out.print("Nome: ");
+		String name = sc.nextLine();
+		return name;
+	}
+	
+	protected static String UITelephone(Scanner sc) {
+		System.out.print("Numero de telefone: ");
+		sc.nextLine();
+		String telephone = sc.nextLine();
+		return telephone;
+	}
+	
 	protected static void catalog(Bookstore store) {
 		System.out.println();
 		System.out.println("             Catalogo de livros");
